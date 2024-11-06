@@ -1,101 +1,260 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { useState, useEffect, useRef, useCallback } from 'react'
+import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown, Mail, X } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog"
+
+type Photo = {
+  src: string
+  caption: string
+}
+
+export default function Scrapbook() {
+  const [vocabularyOpen, setVocabularyOpen] = useState(false)
+  const [activityOpen, setActivityOpen] = useState(false)
+  const [reflectionOpen, setReflectionOpen] = useState(false)
+  const [letterOpen, setLetterOpen] = useState(false)
+  const [visiblePhotos, setVisiblePhotos] = useState<number[]>([])
+
+  const photoRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  const photos: Photo[] = [
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Dublin Castle' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Bray Head' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Trinity College' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Guinness Storehouse' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Killiney Hill' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'St. Stephen\'s Green' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Bray Promenade' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Ha\'penny Bridge' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Phoenix Park' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Dalkey Island' },
+  ]
+
+  const observerCallback = useCallback((entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const index = photoRefs.current.findIndex(ref => ref === entry.target)
+        setVisiblePhotos(prev => [...new Set([...prev, index])])
+      } else {
+        const index = photoRefs.current.findIndex(ref => ref === entry.target)
+        setVisiblePhotos(prev => prev.filter(i => i !== index))
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(observerCallback, { threshold: 0.5 })
+
+    photoRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref)
+    })
+
+    return () => observer.disconnect()
+  }, [observerCallback])
+
+  const toggleSection = useCallback((setter: React.Dispatch<React.SetStateAction<boolean>>) => {
+    setter(prev => !prev)
+  }, [])
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="max-w-4xl mx-auto p-6 bg-gradient-to-b from-emerald-50 to-teal-100">
+      <h1 className="text-4xl font-bold text-center mb-12 text-emerald-800">My Dublin/Bray Scrapbook</h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Photo Gallery */}
+      <section className="mb-16" aria-labelledby="photo-memories">
+        <h2 id="photo-memories" className="text-3xl font-semibold mb-8 text-emerald-700">Photo Memories</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {photos.map((photo, index) => (
+            <motion.div
+              key={index}
+              ref={(el: HTMLDivElement | null) => { photoRefs.current[index] = el }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={visiblePhotos.includes(index) ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              <Card className="overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl bg-white">
+                <CardContent className="p-4">
+                  <Image src={photo.src} alt={photo.caption} width={400} height={300} className="w-full h-64 object-cover rounded-md" />
+                  <p className="mt-4 text-center text-emerald-600 font-medium">{photo.caption}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+      {/* Sections */}
+      <Section
+        title="Irish Vocabulary"
+        isOpen={vocabularyOpen}
+        onToggle={() => toggleSection(setVocabularyOpen)}
+        icon="🍀"
+      >
+        <ul className="list-none space-y-2">
+          {[{ word: "Sláinte", meaning: "Cheers" }, { word: "Craic", meaning: "Fun" }, { word: "Go raibh maith agat", meaning: "Thank you" }, { word: "Fáilte", meaning: "Welcome" }, { word: "Dia duit", meaning: "Hello" }]
+            .map(({ word, meaning }, index) => (
+              <motion.li
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm"
+              >
+                <span className="font-semibold text-emerald-700">{word}</span>
+                <span className="text-teal-600">{meaning}</span>
+              </motion.li>
+            ))}
+        </ul>
+      </Section>
+
+      <Section
+        title="Favorite Activity"
+        isOpen={activityOpen}
+        onToggle={() => toggleSection(setActivityOpen)}
+        icon="🥾"
+      >
+        <p className="text-emerald-700 leading-relaxed">
+          My favorite activity was hiking up Bray Head. The views of the Irish Sea were breathtaking, and the fresh air was invigorating. We saw so many different types of birds and plants along the way!
+        </p>
+      </Section>
+
+      <Section
+        title="Trip Reflection"
+        isOpen={reflectionOpen}
+        onToggle={() => toggleSection(setReflectionOpen)}
+        icon="🤔"
+      >
+        <p className="text-emerald-700 leading-relaxed">
+          This trip to Dublin and Bray was an unforgettable experience. I learned so much about Irish history and culture, made new friends, and created memories that will last a lifetime. The friendly people, beautiful landscapes, and rich heritage of Ireland have left a lasting impression on me.
+        </p>
+      </Section>
+
+      {/* Letter */}
+      <section className="relative mb-8">
+        <Button
+          onClick={() => setLetterOpen(true)}
+          className="w-full flex justify-center items-center bg-emerald-500 text-white p-4 rounded-lg transition-all duration-300 hover:bg-emerald-600 hover:shadow-lg transform hover:-translate-y-1"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <Mail className="mr-2 h-6 w-6" />
+          <span className="text-xl font-semibold">Open Letter</span>
+        </Button>
+        <AnimatePresence>
+          {letterOpen && (
+            <Dialog open={letterOpen} onOpenChange={setLetterOpen}>
+              <DialogContent className="sm:max-w-[550px] p-0 overflow-hidden bg-transparent border-none shadow-none">
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  exit={{ scale: 0, rotate: 180 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="bg-emerald-100 p-8 rounded-lg shadow-2xl relative"
+                >
+                  <DialogHeader>
+                    <DialogTitle>
+                      <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="text-3xl font-bold text-emerald-800 mb-4"
+                      >
+                        Dear Future Self,
+                      </motion.div>
+                    </DialogTitle>
+                    <DialogDescription>
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="space-y-4 text-emerald-700"
+                      >
+                        <p>
+                          Remember the amazing time you had in Dublin and Bray? The laughter shared with classmates, the awe-inspiring
+                          sights, and the sense of adventure that filled each day. Hold onto these memories and let them inspire you to
+                          keep exploring and learning about the world around you.
+                        </p>
+                        <p>
+                          Never forget the feeling of standing atop Bray Head, with the wind in your hair and the vast expanse of the
+                          Irish Sea before you. Let that moment remind you of the beauty and wonder that exists in the world, waiting
+                          for you to discover it.
+                        </p>
+                        <p className="text-right italic">
+                          Fondly,<br />Your Past Self
+                        </p>
+                      </motion.div>
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Button
+                    onClick={() => setLetterOpen(false)}
+                    className="absolute top-4 right-4 bg-transparent hover:bg-emerald-200 text-emerald-800"
+                  >
+                    <X className="h-6 w-6" />
+                    <span className="sr-only">Close</span>
+                  </Button>
+                </motion.div>
+              </DialogContent>
+            </Dialog>
+          )}
+        </AnimatePresence>
+      </section>
     </div>
-  );
+  )
+}
+
+interface SectionProps {
+  title: string
+  isOpen: boolean
+  onToggle: () => void
+  children: React.ReactNode
+  icon: string
+}
+
+function Section({ title, isOpen, onToggle, children, icon }: SectionProps) {
+  return (
+    <section className="mb-8" aria-labelledby={`section-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+      <Button
+        onClick={onToggle}
+        className="w-full justify-between items-center bg-white text-emerald-800 p-4 rounded-lg transition-all duration-300 hover:bg-emerald-50 hover:shadow-md"
+        aria-expanded={isOpen}
+        aria-controls={`content-${title.toLowerCase().replace(/\s+/g, '-')}`}
+      >
+        <span className="text-xl font-semibold flex items-center" id={`section-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+          <span className="mr-2 text-2xl">{icon}</span> {title}
+        </span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ChevronDown className="h-6 w-6" />
+        </motion.div>
+      </Button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <Card className="mt-2 bg-white shadow-lg">
+              <CardContent className="p-4">
+                {children}
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  )
 }

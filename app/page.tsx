@@ -168,7 +168,7 @@ export default function Scrapbook() {
                         transition={{ delay: 0.3 }}
                         className="text-3xl font-bold text-emerald-800 mb-4"
                       >
-                        Dear Future Self,
+                        Dear Professor Philip Grasmück,
                       </motion.div>
                     </DialogTitle>
                     <DialogDescription>

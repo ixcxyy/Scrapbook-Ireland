@@ -182,14 +182,10 @@ export default function Scrapbook() {
                         className="space-y-4 text-emerald-700"
                       >
                         <p>
-                          Remember the amazing time you had in Dublin and Bray? The laughter shared with classmates, the awe-inspiring
-                          sights, and the sense of adventure that filled each day. Hold onto these memories and let them inspire you to
-                          keep exploring and learning about the world around you.
+                          I have had an amazing week in Ireland, and I want to inform you about, what I did.
                         </p>
                         <p>
-                          Never forget the feeling of standing atop Bray Head, with the wind in your hair and the vast expanse of the
-                          Irish Sea before you. Let that moment remind you of the beauty and wonder that exists in the world, waiting
-                          for you to discover it.
+                          The people there are so much different compared to them in Austria, everyone is so nice and helps you, if you need help. Everyone thanks the bus driver, when they hop off the bus and crossing the streets is also alot different. The cars just stop and lets you cross the road, even tho there is no crosswalk. Sadly they people there are really strict about rules, especially when it comes to alcohol, I only wanted 1 Guinness... By the way did you know, that the harph of the Guinness Logo is used by Ireland too, but just flipped around because of the Copyright? Probably not, but I can 100% recommend you visiting Bray and Dublin. It was an unforgettable experience.
                         </p>
                         <p className="text-right italic">
                           Yours sincerely,<br />Jonas Pils

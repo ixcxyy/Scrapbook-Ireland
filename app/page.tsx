@@ -125,7 +125,7 @@ export default function Scrapbook() {
         icon="🥾"
       >
         <p className="text-emerald-700 leading-relaxed">
-          My favorite activity was hiking up Bray Head. The views of the Irish Sea were breathtaking, and the fresh air was invigorating. We saw so many different types of birds and plants along the way!
+        My favorite activity was going to Dublin. Thrift shopping with Paul and just beein with friends in a city, you've never been to be before was so cool! Also I like the atmosphere and the feeling to be there, you felt safe. Also the tasty donuts, which I of course tried were so good, I immediately checked if they are local or in our area at home too, sadly they are local. The vintage stuff I found there, was pretty cool. I bought a Guiness T-Shirt for only 12 euros! Also I peaked in, of course just for a quick picture, the Temple bar.
         </p>
       </Section>
 
@@ -136,7 +136,9 @@ export default function Scrapbook() {
         icon="🤔"
       >
         <p className="text-emerald-700 leading-relaxed">
-          This trip to Dublin and Bray was an unforgettable experience. I learned so much about Irish history and culture, made new friends, and created memories that will last a lifetime. The friendly people, beautiful landscapes, and rich heritage of Ireland have left a lasting impression on me.
+          This trip to Dublin and Bray was an unforgettable experience. I learned so much about Irish history and culture, 
+          made new friends, and created memories that will last a lifetime. The friendly people, beautiful landscapes,
+          and rich heritage of Ireland have left a lasting impression on me.
         </p>
       </Section>
 

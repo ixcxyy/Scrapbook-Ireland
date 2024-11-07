@@ -29,7 +29,7 @@ export default function Scrapbook() {
   const photoRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const photos: Photo[] = [
-    { src: '/imageee.jpeg?height=300&width=400', caption: 'Dublin Castle' },
+    { src: '/School.jpg?height=300&width=400', caption: 'Language School' },
     { src: '/placeholder.svg?height=300&width=400', caption: 'Bray Head' },
     { src: '/placeholder.svg?height=300&width=400', caption: 'Trinity College' },
     { src: '/placeholder.svg?height=300&width=400', caption: 'Guinness Storehouse' },

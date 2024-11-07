@@ -34,12 +34,13 @@ export default function Scrapbook() {
     { src: '/placeholder.svg?height=300&width=400', caption: 'Trinity College' },
     { src: '/placeholder.svg?height=300&width=400', caption: 'Guinness Storehouse' },
     { src: '/placeholder.svg?height=300&width=400', caption: 'Killiney Hill' },
-    { src: '/placeholder.svg?height=300&width=400', caption: 'St. Stephen\'s Green' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'St. Stephen&#39;s Green' }, // Escape single quote
     { src: '/placeholder.svg?height=300&width=400', caption: 'Bray Promenade' },
-    { src: '/placeholder.svg?height=300&width=400', caption: 'Ha\'penny Bridge' },
+    { src: '/placeholder.svg?height=300&width=400', caption: 'Ha&#39;penny Bridge' }, // Escape single quote
     { src: '/placeholder.svg?height=300&width=400', caption: 'Phoenix Park' },
     { src: '/Donut.jpg?height=300&width=400', caption: 'Best Dish 🍩' },
-  ]
+  ];
+  
 
   const observerCallback = useCallback((entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {

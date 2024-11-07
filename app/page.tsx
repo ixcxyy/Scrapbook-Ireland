@@ -38,7 +38,7 @@ export default function Scrapbook() {
     { src: '/placeholder.svg?height=300&width=400', caption: 'Bray Promenade' },
     { src: '/placeholder.svg?height=300&width=400', caption: 'Ha\'penny Bridge' },
     { src: '/placeholder.svg?height=300&width=400', caption: 'Phoenix Park' },
-    { src: '/placeholder.svg?height=300&width=400', caption: 'Dalkey Island' },
+    { src: '/Donut.jpg?height=300&width=400', caption: 'Best Dish 🍩' },
   ]
 
   const observerCallback = useCallback((entries: IntersectionObserverEntry[]) => {

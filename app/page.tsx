@@ -126,7 +126,7 @@ export default function Scrapbook() {
         icon="🥾"
       >
         <p className="text-emerald-700 leading-relaxed">
-        My favorite activity was going to Dublin. Thrift shopping with Paul and just beein with friends in a city, you've never been to be before was so cool! Also I like the atmosphere and the feeling to be there, you felt safe. Also the tasty donuts, which I of course tried were so good, I immediately checked if they are local or in our area at home too, sadly they are local. The vintage stuff I found there, was pretty cool. I bought a Guiness T-Shirt for only 12 euros! Also I peaked in, of course just for a quick picture, the Temple bar.
+        My favorite activity was going to Dublin. Thrift shopping with Paul and just beein with friends in a city, you have never been to be before was so cool! Also I like the atmosphere and the feeling to be there, you felt safe. Also the tasty donuts, which I of course tried were so good, I immediately checked if they are local or in our area at home too, sadly they are local. The vintage stuff I found there, was pretty cool. I bought a Guiness T-Shirt for only 12 euros! Also I peaked in, of course just for a quick picture, the Temple bar.
         </p>
       </Section>
 

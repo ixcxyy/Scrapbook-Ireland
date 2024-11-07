@@ -137,9 +137,9 @@ export default function Scrapbook() {
         icon="🤔"
       >
         <p className="text-emerald-700 leading-relaxed">
-          This trip to Dublin and Bray was an unforgettable experience. I learned so much about Irish history and culture, 
-          made new friends, and created memories that will last a lifetime. The friendly people, beautiful landscapes,
-          and rich heritage of Ireland have left a lasting impression on me.
+          This trip to Dublin and Bray was an unforgettable experience. Our host was very friendly and explained us as quick as possible, how to travell by bus at its best. Beeing allowed to walk around till 22pm and just enjoying Ireland with friends was just great. The view of the cliffs, the feeling of sitting in a train which drives next to the ocean. The autumn atmosphere and of course the people, made the trip unforgettable. Also I have never been to tesco ever before, I am very happy to have checked it out, it has some great deals, for example: 2 liters of Lemonade for just 1 euro! In Glendalough you felt so much connected to the nature. I learned so much about Irish history and culture, it was a you need to be there to understand experience.
+          made new friends, and created memories that will last a lifetime. The friendly people, beautiful landscapes
+          and the feeling of just beeing alone in a city where you have never been to before, will make me come back again to dublin.
         </p>
       </Section>
 
